@@ -109,6 +109,7 @@ class _LoginFormState extends State<LoginForm> {
                   ),
                 ),
               ],
+              const SizedBox(height: 36.0),
 
               /// terms and conditions button
               ElevatedButton(
