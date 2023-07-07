@@ -1,9 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:techpack_demo/apps/auth/auth_controller.dart';
 
-import '../login_form.dart';
+import 'login_form.dart';
 
 ///
 class AuthScreen extends StatefulWidget {

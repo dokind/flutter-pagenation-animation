@@ -23,7 +23,7 @@ class AuthController extends ChangeNotifier {
   }
 
   /// TODO send otp
-  sendOtp(String phone) {}
+  sendOtp(String phone) async {}
 
   /// TODO verify otp
   verifyOtp(String phone, String otp) {

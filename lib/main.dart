@@ -5,7 +5,7 @@ import 'package:techpack_demo/apps/auth/auth_controller.dart';
 import 'package:techpack_demo/widgets/my_scaffold.dart';
 
 import 'apps/apps.dart';
-import 'apps/auth/views/auth_screen.dart';
+import 'apps/auth/auth_screen.dart';
 
 void main() {
   Animate.restartOnHotReload = true;

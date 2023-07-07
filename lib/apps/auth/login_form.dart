@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
+
 import 'package:provider/provider.dart';
 import 'package:techpack_demo/apps/auth/auth_controller.dart';
 import 'package:techpack_demo/utils/extentions.dart';
@@ -44,58 +44,82 @@ class _LoginFormState extends State<LoginForm> {
       isTermsChecked = true;
     }
     return Consumer<AuthController>(
-      builder: (context, AuthController, child) {
+      builder: (context, auth, child) {
         return Form(
           key: widget.formKey,
           // autovalidateMode: AutovalidateMode.disabled,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              LabeledTextInput(
-                onSubmit: (_) => _submitForm,
-                keyboardType: TextInputType.phone,
-                controller: widget.phoneNumber,
-                autoFocus: false,
-                hintText: "Phone number",
-                validator: (value) {
-                  if (value?.isEmpty ?? true) {
-                    return 'Зөв дугаар оруулнa байгаа...';
-                  }
-                  if (value!.isPhoneNumber()) {
-                    return 'Зөв дугаар оруулна шүү!';
-                  }
-                  return null;
-                },
-                autofillHints: const [
-                  AutofillHints.telephoneNumber,
-                ],
-                onChanged: (_) => setState(() {}),
-              ),
-
-              LabeledTextInput(
-                onSubmit: (_) => _submitForm,
-                controller: widget.password,
-                validator: (value) {
-                  if (widget.isRegisterScreen) {
-                    if (value == null || value.isEmpty) {
-                      return 'Шинэ нууц үгээ оруулна уу';
+              if (widget.isRegisterScreen) ...[
+                LabeledTextInput(
+                  onSubmit: (_) => _submitForm,
+                  keyboardType: TextInputType.phone,
+                  controller: widget.phoneNumber,
+                  autoFocus: false,
+                  hintText: "Phone number",
+                  validator: (value) {
+                    if (value?.isEmpty ?? true) {
+                      return 'Зөв дугаар оруулнa байгаа...';
                     }
-                    if (!value.isStrongPassword()) {
-                      return 'Таны нууц үг сул байна';
+                    if (value!.isPhoneNumber()) {
+                      return 'Зөв дугаар оруулна шүү!';
                     }
-                  } else {
-                    if (value == null || value.isEmpty) {
-                      return 'Нууц үгээ оруулна уу';
+                    if (value.length == 8) {
+                      auth.sendOtp(value);
                     }
-                  }
-                  return null;
-                },
-                hintText: "Нууц үг",
-                autofillHints: const [AutofillHints.password],
-                onChanged: (_) => setState(() {}),
-                obscureText: true,
-              ),
-
+                    return null;
+                  },
+                  autofillHints: const [
+                    AutofillHints.telephoneNumber,
+                  ],
+                  onChanged: (_) => setState(() {}),
+                ),
+              ] else ...[
+                LabeledTextInput(
+                  onSubmit: (_) => _submitForm,
+                  keyboardType: TextInputType.phone,
+                  controller: widget.phoneNumber,
+                  autoFocus: false,
+                  hintText: "Phone number",
+                  validator: (value) {
+                    if (value?.isEmpty ?? true) {
+                      return 'Зөв дугаар оруулнa байгаа...';
+                    }
+                    if (value!.isPhoneNumber()) {
+                      return 'Зөв дугаар оруулна шүү!';
+                    }
+                    return null;
+                  },
+                  autofillHints: const [
+                    AutofillHints.telephoneNumber,
+                  ],
+                  onChanged: (_) => setState(() {}),
+                ),
+                LabeledTextInput(
+                  onSubmit: (_) => _submitForm,
+                  controller: widget.password,
+                  validator: (value) {
+                    if (widget.isRegisterScreen) {
+                      if (value == null || value.isEmpty) {
+                        return 'Шинэ нууц үгээ оруулна уу';
+                      }
+                      if (!value.isStrongPassword()) {
+                        return 'Таны нууц үг сул байна';
+                      }
+                    } else {
+                      if (value == null || value.isEmpty) {
+                        return 'Нууц үгээ оруулна уу';
+                      }
+                    }
+                    return null;
+                  },
+                  hintText: "Нууц үг",
+                  autofillHints: const [AutofillHints.password],
+                  onChanged: (_) => setState(() {}),
+                  obscureText: true,
+                ),
+              ],
               if (_errorText.isNotEmpty) ...[
                 ..._errorText.map(
                   (e) => Align(
