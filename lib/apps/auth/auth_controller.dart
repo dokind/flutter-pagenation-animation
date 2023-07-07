@@ -2,14 +2,10 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 
-enum AuthMode { Signup, Login }
-
 class AuthController extends ChangeNotifier {
   bool _isAuth = false;
-  AuthMode _authMode = AuthMode.Login;
 
   bool get isAuth => _isAuth;
-  AuthMode get authMode => _authMode;
 
   get formKey => GlobalKey<FormState>();
 
